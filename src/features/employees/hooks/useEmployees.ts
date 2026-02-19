@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import {
     getAllEmployees,
-    getEmployeeById,
+    // getEmployeeById,
     createEmployee,
     updateEmployee,
     deleteEmployee
@@ -38,11 +38,11 @@ export function useCreateEmployee() {
             queryClient.invalidateQueries({
                 queryKey: employeeKeys.lists()
             })
-        toast.success('Employee added successfully')
+            toast.success('Employee added successfully')
         },
 
         onError: (error: ApiError) => {
-toast.error(error.message ?? 'Failed to add employee')
+            toast.error(error.message ?? 'Failed to add employee')
         },
     })
 }
@@ -77,6 +77,11 @@ export function useDeleteEmployee() {
             queryClient.invalidateQueries({
                 queryKey: employeeKeys.lists(),
             })
+            toast.success("Employee deleted successfully")
+        },
+
+        onError: (error: ApiError) => {
+            toast.error(error.message ?? 'Failed to delete employee')
         },
     })
 }
