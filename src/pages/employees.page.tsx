@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAllEmployees,  } from "@/features/employees/hooks/useEmployees"
+import { TableSkeleton } from "@/components/table.skeleton"
 import { EmployeesTable } from "@/features/employees/components/employees.table"
 import { CreateEmployeeModal } from "@/features/employees/components/create.employee.form"
 import { UpdateEmployeeModal } from "@/features/employees/components/update.employee.form"
@@ -10,10 +11,10 @@ export function EmployeesPage() {
     const {data, isLoading, isError, error} = useAllEmployees()
     const [createOpen, setCreateOpen] = useState(false)
     const [updateOpen, setUpdateOpen] = useState(false)
-const [deleteOpen, setDeleteOpen] = useState(false)
+    const [deleteOpen, setDeleteOpen] = useState(false)
     const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null)
 
-    if (isLoading) return <div>Loading</div>
+    if (isLoading) return <TableSkeleton />
     if (isError) return <div>Error {error.message}</div>
   return (
         <>
