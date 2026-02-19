@@ -90,15 +90,15 @@ Components in `src/components/` are genuinely reusable across features — layou
 All fetch calls go through a single `fetchAPI` utility in `src/lib/api.ts` that handles network errors, non-ok responses, and error shaping into a consistent `ApiError` type.
 
 ### TanStack Query for server state
-React Query handles all loading states, error states, and cache invalidation. After any mutation (create, update, delete), the employee list is automatically invalidated and refetched — no manual state updates needed. Success and error toasts are fired from the mutation hooks, not from components.
+React Query handles all loading states, error states, and cache invalidation. After any mutation (create, update, delete), the employee list is automatically invalidated and refetched, no manual state updates needed. Success and error toasts are fired from the mutation hooks, not from components.
 
 ### Single form modal pattern
-Add and Edit use separate modal components since the forms differ significantly — the create form has all fields editable, while the update form only allows editing `jobTitle` (per API constraint) and shows other fields as read-only for context.
+Add and Edit use separate modal components since the forms differ significantly, the create form has all fields editable, while the update form only allows editing `jobTitle` (per API constraint) and shows other fields as read-only for context.
 
 ### Client-side pagination
-The API supports server-side pagination via `page` and `limit` query params, but client-side pagination via TanStack Table was chosen for this implementation. The dataset from the mock API is small, and server-side pagination would require working around MockAPI's limitation of not returning a total count — making true last-page detection impossible. Client-side pagination is the appropriate tradeoff at this scale.
+The API supports server-side pagination via `page` and `limit` query params, but client-side pagination via TanStack Table was chosen for this implementation. The dataset from the mock API is small, and server-side pagination would require working around MockAPI's limitation of not returning a total count. Client-side pagination is the appropriate tradeoff at this scale.
 
-> For a production dataset of thousands of records, server-side pagination with a `page`/`limit` approach and `hasNextPage` derived from response length would be the correct approach.
+> For a production dataset with a large number of records, server-side pagination with a `page`/`limit` approach and `hasNextPage` derived from response length would be the correct approach.
 
 
 ---
@@ -106,8 +106,8 @@ The API supports server-side pagination via `page` and `limit` query params, but
 ## Out of Scope
 
 Given the scope of the challenge and the size of mock API, I left out many production-grade improvements that could've take place in a larger instance:
-- *Abstraction:* first I thought of extracting a generic DataTable component and reimplmenting the documents section as another feature with the same archi, but the original DataTable file was large and tightly coupled, so I left it as is and only separated it from navigation and layout.
-- *Optimization*: optimistic updates and virtualization weren't necessary for the size of the data and the project.
+- **Abstraction:** first I thought of extracting a generic DataTable component and reimplmenting the documents section as another feature with the same archi, but the original DataTable file was large and tightly coupled, so I left it as is and only separated it from navigation and layout.
+- **Optimization**: optimistic updates and virtualization weren't necessary for the size of the data and the project.
 ## Running the Project
 
 ```bash
