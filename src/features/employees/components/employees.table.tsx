@@ -49,7 +49,6 @@ import type { Employee } from '../types/employees.types'
 
 interface EmployeeTableProps {
     data: Employee[]
-    isLoading: boolean
     onAdd: () => void
     onEdit: (employee: Employee) => void
     onDelete: (employee: Employee) => void
@@ -59,7 +58,6 @@ const PAGE_SIZE_OPTIONS = [10, 20, 30, 40, 50]
 
 export function EmployeesTable({
     data,
-    isLoading,
     onAdd,
     onEdit,
     onDelete,
@@ -141,17 +139,7 @@ export function EmployeesTable({
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {isLoading ? (
-                            Array.from({ length: pagination.pageSize }).map((_, i) => (
-                                <TableRow key={i}>
-                                    {columns.map((_, j) => (
-                                        <TableCell key={j}>
-                                            <Skeleton className="h-4 w-full" />
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))
-                        ) : table.getRowModel().rows.length ? (
+                        {table.getRowModel().rows.length ? (
                             table.getRowModel().rows.map(row => (
                                 <TableRow key={row.id}>
                                     {row.getVisibleCells().map(cell => (

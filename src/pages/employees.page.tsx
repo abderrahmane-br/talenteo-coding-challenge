@@ -19,7 +19,7 @@ export function EmployeesPage() {
   return (
         <>
             <EmployeesTable 
-                data={data} 
+                data={data ?? []} 
                 onAdd={() => setCreateOpen(true)}
                 onEdit={(employee)=>{
                     setSelectedEmployee(employee)
