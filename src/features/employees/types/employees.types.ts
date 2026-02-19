@@ -4,12 +4,12 @@ export interface Employee {
     firstName: string,
     lastName: string,
     avatar: string,
-    registrationNumber: number,
+    registratonNumber: number, // typo in the api registratonNumber, took me a while to find it xD
     email: string,
-    dateOfBirth: string, // date parsing?
+    dateOfBirth: string,
     gender: 'male' | 'female',
     jobTitle: string,
-    departement: string,
+    department: string,
     createdAt: string,
 
 }
