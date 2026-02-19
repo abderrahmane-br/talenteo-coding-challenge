@@ -9,6 +9,7 @@ import {
 import type { Employee } from '../types/employees.types'
 import type { ApiError } from '@/types/api.types'
 import type { CreateEmployeeRequest, UpdateEmployeeRequest } from '../types/employees.requests'
+import { toast } from 'sonner'
 
 
 export const employeeKeys = {
@@ -46,9 +47,12 @@ export function useCreateEmployee() {
             queryClient.invalidateQueries({
                 queryKey: employeeKeys.lists()
             })
-        }
+        toast.success('Employee added successfully')
+        },
 
-        // onError => add toast later
+        onError: (error: ApiError) => {
+toast.error(error.message ?? 'Failed to add employee')
+        },
     })
 }
 
