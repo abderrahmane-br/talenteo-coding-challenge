@@ -27,15 +27,6 @@ export function useAllEmployees() {
 }
 
 
-export function useEmployee(id: string) {
-    return useQuery<Employee, ApiError>({
-        queryKey: employeeKeys.detail(id),
-        queryFn: () => getEmployeeById(id),
-        enabled: !!id
-    })
-}
-
-
 export function useCreateEmployee() {
     const queryClient = useQueryClient()
 
@@ -64,14 +55,13 @@ export function useUpdateEmployee() {
         mutationFn: ({ id, data }: { id: string; data: UpdateEmployeeRequest }) =>
             updateEmployee(id, data),
 
-        onSuccess: (_, variables) => {
-            queryClient.invalidateQueries({
-                queryKey: employeeKeys.lists(),
-            })
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: employeeKeys.lists() })
+            toast.success('Employee updated successfully')
+        },
 
-            queryClient.invalidateQueries({
-                queryKey: employeeKeys.detail(variables.id),
-            })
+        onError: (error: ApiError) => {
+            toast.error(error.message ?? 'Failed to update employee')
         },
     })
 }

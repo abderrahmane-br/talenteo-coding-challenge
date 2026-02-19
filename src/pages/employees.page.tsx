@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useAllEmployees,  } from "@/features/employees/hooks/useEmployees"
 import { EmployeesTable } from "@/features/employees/components/employees.table"
 import { CreateEmployeeModal } from "@/features/employees/components/create.employee.form"
+import { UpdateEmployeeModal } from "@/features/employees/components/update.employee.form"
 
 export function EmployeesPage() {
     const {data, isLoading, isError, error} = useAllEmployees()
@@ -14,8 +15,15 @@ export function EmployeesPage() {
             <EmployeesTable 
                 data={data} 
                 onAdd={() => setCreateOpen(true)}
+                onEdit={(employee)=>{
+                    setSelectedEmployee(employee)
+                    setUpdateOpen(true)
+                }} 
+            <UpdateEmployeeModal 
+                open={updateOpen}
+                onOpenChange={setUpdateOpen}
+                employee={selectedEmployee}
             />
-
     )
 }
 

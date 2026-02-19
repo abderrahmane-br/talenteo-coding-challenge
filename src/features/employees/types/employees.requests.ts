@@ -11,7 +11,7 @@ export type CreateEmployeeRequest = Omit<Employee, 'id' | 'createdAt'>
 
 
 // PATCH
-export type UpdateEmployeeRequest = Partial<Employee>
+export type UpdateEmployeeRequest = Pick<Employee, 'jobTitle'>
 // export type UpdateEmployeeResponse = Employee
 
 
