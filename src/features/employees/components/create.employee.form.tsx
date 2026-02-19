@@ -26,7 +26,12 @@ const DEPARTMENTS = ['IT', 'Marketing', 'Product', 'Sales'] as const
 const createEmployeeSchema = z.object({
     firstName:          z.string().min(1, 'First name is required'),
     lastName:           z.string().min(1, 'Last name is required'),
-    registrationNumber: z.coerce.number({ error: 'Must be a valid number' }).positive('Must be positive'),
+    registrationNumber: z.preprocess(
+        val => (val === '' || val === undefined ? undefined : Number(val)),
+        z.number({ error: 'Registration number is required' })
+        .positive('Must be a positive number')
+        .int('Must be a whole number')
+    ),
     email:              z.string().email('Invalid email address'),
     dateOfBirth:        z.string().min(1, 'Date of birth is required'),
     gender:             z.enum(['male', 'female'], { error: 'Gender is required' }),
